@@ -11,14 +11,14 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     type = "session"
     style = "plain"
     background = 'transparent'
-    foreground = "#9ece6a"
-    foreground_templates = [ "{{ if .Root }}#f7768e{{ end }}" ] 
+    foreground = "#a6e3a1"
+    foreground_templates = [ "{{ if .Root }}#f38ba8{{ end }}" ] 
     template = "{{ if .SSHSession }}{{ .HostName }}{{ end }}  {{ .UserName }}"
   
   [[blocks.segments]]
     type = "path"
     style = "plain"
-    foreground = "#7aa2f7"
+    foreground = "#89b4fa"
     background = 'transparent'
     template = "  {{ .Path }} "
     
@@ -29,7 +29,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   [[blocks.segments]]
     type = 'git'
     style = 'plain'
-    foreground = "#c0caf5"
+    foreground = "#a6adc8"
     background = 'transparent'
     template = "{{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} "
     
@@ -45,16 +45,16 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   [[blocks.segments]]
     type = "status"
     style = 'plain'
-    foreground = "#ff757f"
+    foreground = "#eba0ac"
     background = 'transparent'
-    template = "{{ if eq .Code 0 }}<#82aaff>0</>{{ else }}<#f7768e></> {{ .Code }}{{ end }}"
+    template = "{{ if eq .Code 0 }}<#74c7ec>0</>{{ else }}<#f38ba8></> {{ .Code }}{{ end }}"
 
   [[blocks.segments]]
     type = "executiontime"
     style = "plain"
     background = 'transparent'
     foreground = "#c0caf5"
-    template = " <#7dcfff>󱤦</> {{ .FormattedMs }} "
+    template = " <#94e2d5>󱤦</> {{ .FormattedMs }} "
     
     [blocks.segments.properties]
       always_enabled = true
@@ -62,7 +62,7 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
   [[blocks.segments]]
     type = "time"
     style = "plain"
-    foreground = "#e0af68"
+    foreground = "#fab387"
     template = " {{ .CurrentDate | date .Format }}"
   
 [[blocks]]
@@ -74,10 +74,10 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
     type = 'text'
     style = 'plain'
     background = 'transparent'
-    foreground = '#a9b1d6'
+    foreground = '#bac2de'
     template = "❯"
 
 [transient_prompt]
-  foreground = '#a9b1d6'
+  foreground = '#bac2de'
   background = 'transparent'
   template = "❯"
