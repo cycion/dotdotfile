@@ -1,83 +1,105 @@
-"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
-version = 2
-final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+final_space = true
+
+[palette] # TokyoNight color palette
+black = "#15161e"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#a9b1d6"
+
+# [palette] # Sonokai color palette
+# red = "#fb617e"
+# green = "#9ed06c"
+# yellow = "#edc763"
+# blue = "#6dcae8"
+# magenta = "#bb97ee"
+# cyan = "#77d5f0"
 
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
 
   [[blocks.segments]]
-    type = "session"
+    type = "text"
     style = "plain"
-    background = 'transparent'
-    foreground = "#9ece6a"
-    foreground_templates = [ "{{ if .Root }}#f7768e{{ end }}" ] 
-    template = "{{ if .SSHSession }}{{ .HostName }}{{ end }}  {{ .UserName }}"
-  
-  [[blocks.segments]]
-    type = "path"
-    style = "plain"
-    foreground = "#7aa2f7"
-    background = 'transparent'
-    template = "  {{ .Path }} "
-    
-    [blocks.segments.properties]
-      folder_icon = ""
-      style = "full"
-  
-  [[blocks.segments]]
-    type = 'git'
-    style = 'plain'
-    foreground = "#c0caf5"
-    background = 'transparent'
-    template = "{{ .UpstreamIcon }}{{ .HEAD }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} "
-    
-    [blocks.segments.properties]
-      fetch_upstream_icon = true
-      fetch_stash_count = true
-      fetch_status = true
-
-[[blocks]]
-  type = 'prompt'
-  alignment = 'right'
-  
-  [[blocks.segments]]
-    type = "status"
-    style = 'plain'
-    foreground = "#ff757f"
-    background = 'transparent'
-    template = "{{ if eq .Code 0 }}<#82aaff>0</>{{ else }}<#f7768e></> {{ .Code }}{{ end }}"
+    foreground = "#ffffff"
+    template = ""
 
   [[blocks.segments]]
-    type = "executiontime"
-    style = "plain"
+    template = '{{ if eq .Code 0 }}{{ else }}  {{ .Code }} {{ end }}'
+    foreground = 'p:red'
     background = 'transparent'
-    foreground = "#c0caf5"
-    template = " <#7dcfff>󱤦</> {{ .FormattedMs }} "
-    
+    type = 'status'
+    style = 'plain'
+
     [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '{{ if .SSHSession }}{ { .HostName }}{{ end }}  {{ .UserName }} '
+    foreground = 'p:blue'
+    background = 'transparent'
+    type = 'session'
+    style = 'plain'
+    foreground_templates = ['{{ if .Root }}p:red{{ end }}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '  {{ .Path }} '
+    foreground = 'p:yellow'
+    background = 'transparent'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      folder_icon = ''
+      style = 'full'
+
+  [[blocks.segments]]
+    template = '  {{ .FormattedMs }} '
+    foreground = 'p:cyan'
+    background = 'transparent'
+    type = 'executiontime'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
       always_enabled = true
 
   [[blocks.segments]]
-    type = "time"
-    style = "plain"
-    foreground = "#e0af68"
-    template = " {{ .CurrentDate | date .Format }}"
-  
+    template = ' {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}   {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}  '
+    foreground = 'p:magenta'
+    background = 'transparent'
+    type = 'git'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      fetch_stash_count = true
+      fetch_status = true
+      fetch_upstream_icon = true
+      branch_icon = "\ue725 "
+
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
   newline = true
 
   [[blocks.segments]]
+#    template = "\u2570"
+    template = "\u2009\u2937"
+    foreground = 'p:green'
+    background = 'transparent'
     type = 'text'
     style = 'plain'
-    background = 'transparent'
-    foreground = '#a9b1d6'
-    template = "❯"
 
-[transient_prompt]
-  foreground = '#a9b1d6'
-  background = 'transparent'
-  template = "❯"
+    [blocks.segments.properties]
+      cache_duration = 'none'
