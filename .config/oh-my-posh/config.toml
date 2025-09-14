@@ -1,4 +1,3 @@
-console_title_template = "{{ .Shell }} in {{ .Folder }}"
 version = 3
 final_space = true
 
@@ -41,7 +40,7 @@ white = "#a9b1d6"
       cache_duration = "none"
 
   [[blocks.segments]]
-    template = "{{ if .SSHSession }}{ { .HostName }}{{ end }}\uf444 \uf007 {{ .UserName }} \uf444"
+    template = "\uf444 \uf007 {{ .UserName }}{{ if .SSHSession }}<p:white>@</>{{ .HostName }}{{ end }} \uf444"
     foreground = "p:blue"
     background = "transparent"
     type = "session"
