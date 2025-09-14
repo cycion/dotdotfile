@@ -1,4 +1,4 @@
-console_title_template = '{{ .Shell }} in {{ .Folder }}'
+console_title_template = "{{ .Shell }} in {{ .Folder }}"
 version = 3
 final_space = true
 
@@ -21,8 +21,8 @@ white = "#a9b1d6"
 # cyan = "#77d5f0"
 
 [[blocks]]
-  type = 'prompt'
-  alignment = 'left'
+  type = "prompt"
+  alignment = "left"
 
   [[blocks.segments]]
     type = "text"
@@ -31,75 +31,75 @@ white = "#a9b1d6"
     template = ""
 
   [[blocks.segments]]
-    template = '{{ if eq .Code 0 }}{{ else }}  {{ .Code }} {{ end }}'
-    foreground = 'p:red'
-    background = 'transparent'
-    type = 'status'
-    style = 'plain'
+    template = "{{ if eq .Code 0 }}{{ else }}\uf444 \uf467 {{ .Code }} \uf444{{ end }}"
+    foreground = "p:red"
+    background = "transparent"
+    type = "status"
+    style = "plain"
 
     [blocks.segments.properties]
-      cache_duration = 'none'
+      cache_duration = "none"
 
   [[blocks.segments]]
-    template = '{{ if .SSHSession }}{ { .HostName }}{{ end }}  {{ .UserName }} '
-    foreground = 'p:blue'
-    background = 'transparent'
-    type = 'session'
-    style = 'plain'
-    foreground_templates = ['{{ if .Root }}p:red{{ end }}']
+    template = "{{ if .SSHSession }}{ { .HostName }}{{ end }}\uf444 \uf007 {{ .UserName }} \uf444"
+    foreground = "p:blue"
+    background = "transparent"
+    type = "session"
+    style = "plain"
+    foreground_templates = ["{{ if .Root }}p:red{{ end }}"]
 
     [blocks.segments.properties]
-      cache_duration = 'none'
+      cache_duration = "none"
 
   [[blocks.segments]]
-    template = '  {{ .Path }} '
-    foreground = 'p:yellow'
-    background = 'transparent'
-    type = 'path'
-    style = 'plain'
+    template = "\uf444 \uf07b {{ .Path }} \uf444"
+    foreground = "p:yellow"
+    background = "transparent"
+    type = "path"
+    style = "plain"
 
     [blocks.segments.properties]
-      cache_duration = 'none'
-      folder_icon = ''
-      style = 'full'
+      cache_duration = "none"
+      folder_icon = "\uf07b"
+      style = "full"
 
   [[blocks.segments]]
-    template = '  {{ .FormattedMs }} '
-    foreground = 'p:cyan'
-    background = 'transparent'
-    type = 'executiontime'
-    style = 'plain'
+    template = "\uf444 \uf252 {{ .FormattedMs }} \uf444"
+    foreground = "p:cyan"
+    background = "transparent"
+    type = "executiontime"
+    style = "plain"
 
     [blocks.segments.properties]
-      cache_duration = 'none'
+      cache_duration = "none"
       always_enabled = true
 
   [[blocks.segments]]
-    template = ' {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}   {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}  '
-    foreground = 'p:magenta'
-    background = 'transparent'
-    type = 'git'
-    style = 'plain'
+    template = "\uf444 {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}   {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} \uf444 "
+    foreground = "p:magenta"
+    background = "transparent"
+    type = "git"
+    style = "plain"
 
     [blocks.segments.properties]
-      cache_duration = 'none'
+      cache_duration = "none"
       fetch_stash_count = true
       fetch_status = true
       fetch_upstream_icon = true
       branch_icon = "\ue725 "
 
 [[blocks]]
-  type = 'prompt'
-  alignment = 'left'
+  type = "prompt"
+  alignment = "left"
   newline = true
 
   [[blocks.segments]]
 #    template = "\u2570"
     template = "\u2009\u2937"
-    foreground = 'p:green'
-    background = 'transparent'
-    type = 'text'
-    style = 'plain'
+    foreground = "p:green"
+    background = "transparent"
+    type = "text"
+    style = "plain"
 
     [blocks.segments.properties]
-      cache_duration = 'none'
+      cache_duration = "none"
