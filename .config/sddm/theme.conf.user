@@ -1,0 +1,22 @@
+## For SDDM sugar-candy theme found on KDE store
+[General]
+Background="Backgrounds/SnowMountain.jpg"
+Font="SF Pro Rounded"
+
+MainColor="white"
+AccentColor="white"
+BackgroundColor="white"
+OverrideLoginButtonTextColor="#4c4f69"
+
+showClock=true
+type=image
+
+ScreenWidth="2560"
+ScreenHeight="1600"
+
+ForceHideCompletePassword="true"
+
+HourFormat="HH:mm:ss"
+DateFormat="dd.MM.yyyy"
+
+HeaderText=" "
