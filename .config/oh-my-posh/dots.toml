@@ -9,7 +9,13 @@ yellow = "#e0af68"
 blue = "#7aa2f7"
 magenta = "#bb9af7"
 cyan = "#7dcfff"
-white = "#a9b1d6"
+white = "#c0caf5"
+
+yellow2 = "#ff9e64"
+cyan2 = "#73daca"
+cyan3 = "#b4f9f8"
+blue2 = "#2ac3de"
+
 
 # [palette] # Sonokai color palette
 # red = "#fb617e"
@@ -40,7 +46,7 @@ white = "#a9b1d6"
       cache_duration = "none"
 
   [[blocks.segments]]
-    template = "\uf444 \uf007 {{ .UserName }}{{ if .SSHSession }}<p:white>@</>{{ .HostName }}{{ end }} \uf444"
+    template = "\uf444 \uf007 {{ .UserName }}<p:white>@</><p:cyan>{{ .HostName }}</> \uf444"
     foreground = "p:blue"
     background = "transparent"
     type = "session"
@@ -52,7 +58,7 @@ white = "#a9b1d6"
 
   [[blocks.segments]]
     template = "\uf444 \uf07b {{ .Path }} \uf444"
-    foreground = "p:yellow"
+    foreground = "p:yellow2"
     background = "transparent"
     type = "path"
     style = "plain"
@@ -63,18 +69,7 @@ white = "#a9b1d6"
       style = "full"
 
   [[blocks.segments]]
-    template = "\uf444 \uf252 {{ .FormattedMs }} \uf444"
-    foreground = "p:cyan"
-    background = "transparent"
-    type = "executiontime"
-    style = "plain"
-
-    [blocks.segments.properties]
-      cache_duration = "none"
-      always_enabled = true
-
-  [[blocks.segments]]
-    template = "\uf444 {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}   {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} \uf444 "
+    template = "\uf444 {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}   {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} \uf444"
     foreground = "p:magenta"
     background = "transparent"
     type = "git"
@@ -86,7 +81,18 @@ white = "#a9b1d6"
       fetch_status = true
       fetch_upstream_icon = true
       branch_icon = "\ue725 "
+      
+  [[blocks.segments]]
+    template = "\uf444 \uf252 {{ .FormattedMs }} \uf444"
+    foreground = "p:cyan2"
+    background = "transparent"
+    type = "executiontime"
+    style = "plain"
 
+    [blocks.segments.properties]
+      cache_duration = "none"
+      always_enabled = true
+      
 [[blocks]]
   type = "prompt"
   alignment = "left"
@@ -94,7 +100,7 @@ white = "#a9b1d6"
 
   [[blocks.segments]]
 #    template = "\u2570"
-    template = "\u2009\u2937"
+    template = "\u2009\u2937 "
     foreground = "p:green"
     background = "transparent"
     type = "text"
