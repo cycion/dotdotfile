@@ -1,8 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
-export PATH=$PATH:/home/singularity/.local/bin
-
+export PATH=$PATH:$HOME/.local/bin
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -93,6 +91,11 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
+
+export CFLAGS="-march=native -O3"
+export CXXFLAGS="-march=native -O3"
+export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3"
+
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
 # users are encouraged to define aliases within a top-level file in
@@ -100,8 +103,12 @@ source $ZSH/oh-my-zsh.sh
 # - $ZSH_CUSTOM/aliases.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
-#
+
+# Environment variables
+export VISUAL=nano
+export EDITOR=nano
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh/dots.toml)"
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/dots.toml)"
