@@ -70,8 +70,8 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-syntax-highlighting)
 
+plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -91,10 +91,9 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
-
-export CFLAGS="-march=native -O3"
-export CXXFLAGS="-march=native -O3"
-export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3"
+export CFLAGS="-march=native -O3 -flto=thin"
+export CXXFLAGS="-march=native -O3 -flto=thin"
+export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3 -Clto=thin"
 
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
@@ -108,6 +107,7 @@ export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3"
 export VISUAL=nano
 export EDITOR=nano
 
+typeset -g ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
