@@ -25,6 +25,25 @@ blue2 = "#2ac3de"
 # magenta = "#bb97ee"
 # cyan = "#77d5f0"
 
+# [palette] # Catppuccin Mocha color pallete
+# black = "#45475a"
+# red = "#f38ba8"
+# green = "#a6e3a1"
+# yellow = "#f9e2af"
+# blue = "#89b4fa"
+# magenta = "#f5c2e7"
+# cyan = "#94e2d5"
+# white = "#a6adc8"
+
+# black2 = "#585b70"
+# red2 = "#f37799"
+# green2 = "#89d88b"
+# yellow2 = "#ebd391"
+# blue2 = "#74a8fc"
+# magenta2 = "#f2aede"
+# cyan2 = "#6bd7ca"
+# white2 = "#bac2de"
+
 [[blocks]]
   type = "prompt"
   alignment = "left"
@@ -46,8 +65,8 @@ blue2 = "#2ac3de"
       cache_duration = "none"
 
   [[blocks.segments]]
-    template = "\uf444 \uf007 {{ .UserName }}<p:white>@</><p:cyan>{{ .HostName }}</> \uf444"
-    foreground = "p:blue"
+    template = "\uf444 \uf007 {{ .UserName }}<p:white>@</><p:blue>{{ .HostName }}</> \uf444"
+    foreground = "p:cyan"
     background = "transparent"
     type = "session"
     style = "plain"
@@ -57,8 +76,8 @@ blue2 = "#2ac3de"
       cache_duration = "none"
 
   [[blocks.segments]]
-    template = "\uf444 \uf07b {{ .Path }} \uf444"
-    foreground = "p:yellow2"
+    template = "\uf444 {{ if .Writable }}\uf07b{{ else }}<p:yellow2>\uf023</>{{ end }} {{ .Path }} \uf444"
+    foreground = "p:yellow"
     background = "transparent"
     type = "path"
     style = "plain"
