@@ -1,21 +1,39 @@
 version = 3
 final_space = true
 
-[palette] # TokyoNight color palette
-black = "#15161e"
-red = "#f7768e"
-green = "#9ece6a"
-yellow = "#e0af68"
-blue = "#7aa2f7"
-magenta = "#bb9af7"
-cyan = "#7dcfff"
-white = "#c0caf5"
+# [palette] # TokyoNight color palette
+# black = "#15161e"
+# red = "#f7768e"
+# green = "#9ece6a"
+# yellow = "#e0af68"
+# blue = "#7aa2f7"
+# magenta = "#bb9af7"
+# cyan = "#7dcfff"
+# white = "#c0caf5"
+# 
+# yellow2 = "#ff9e64"
+# cyan2 = "#73daca"
+# cyan3 = "#b4f9f8"
+# blue2 = "#2ac3de"
 
-yellow2 = "#ff9e64"
-cyan2 = "#73daca"
-cyan3 = "#b4f9f8"
-blue2 = "#2ac3de"
+[palette] # Ayu-dark color palette
+black = "#1e232b"
+red = "#ea6c73"
+green = "#7fd962"
+yellow = "#f9af4f"
+blue = "#53bdfa"
+magenta = "#cda1fa"
+cyan = "#90e1c6"
+white = "#c7c7c7"
 
+black2 = "#686868"
+red2 = "#f07178"
+green2 = "#aad94c"
+yellow2 = "#ffb454"
+blue2 = "#59c2ff"
+magenta2 = "#d2a6ff"
+cyan2 = "#95e6cb"
+white2 = "#ffffff"
 
 # [palette] # Sonokai color palette
 # red = "#fb617e"
