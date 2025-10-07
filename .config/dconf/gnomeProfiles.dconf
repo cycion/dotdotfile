@@ -1,0 +1,53 @@
+[/]
+default='83476538-5e29-44a7-99ad-4430c3ceff46'
+list=['83476538-5e29-44a7-99ad-4430c3ceff46', '003198ae-e66e-416d-9be1-f5d3b447a8c8']
+
+[:003198ae-e66e-416d-9be1-f5d3b447a8c8]
+audible-bell=true
+background-color='rgb(13,16,23)'
+bold-color='rgb(191,189,182)'
+bold-color-same-as-fg=false
+bold-is-bright=false
+cursor-background-color='rgb(191,189,182)'
+cursor-colors-set=true
+cursor-foreground-color='rgb(13,16,23)'
+cursor-shape='ibeam'
+custom-command='/usr/bin/zsh'
+default-size-columns=132
+default-size-rows=43
+font='CaskaydiaCove Nerd Font Mono 12'
+foreground-color='rgb(191,189,182)'
+highlight-background-color='rgb(27,58,91)'
+highlight-colors-set=true
+highlight-foreground-color='rgb(191,189,182)'
+palette=['rgb(30,35,43)', 'rgb(234,108,115)', 'rgb(127,217,98)', 'rgb(249,175,79)', 'rgb(83,189,250)', 'rgb(205,161,250)', 'rgb(144,225,198)', 'rgb(199,199,199)', 'rgb(104,104,104)', 'rgb(240,113,120)', 'rgb(170,217,76)', 'rgb(255,180,84)', 'rgb(89,194,255)', 'rgb(210,166,255)', 'rgb(149,230,203)', 'rgb(255,255,255)']
+scrollback-lines=16000
+use-custom-command=true
+use-system-font=false
+use-theme-colors=false
+visible-name='Ayu'
+
+[:83476538-5e29-44a7-99ad-4430c3ceff46]
+audible-bell=true
+background-color='rgb(26,27,38)'
+bold-color='rgb(169,177,214)'
+bold-color-same-as-fg=false
+bold-is-bright=false
+cursor-background-color='rgb(169,177,214)'
+cursor-colors-set=true
+cursor-foreground-color='rgb(26,27,38)'
+cursor-shape='ibeam'
+custom-command='/usr/bin/zsh'
+default-size-columns=132
+default-size-rows=43
+font='CaskaydiaCove Nerd Font Mono 12'
+foreground-color='rgb(169,177,214)'
+highlight-background-color='rgb(34,37,51)'
+highlight-colors-set=true
+highlight-foreground-color='rgb(169,177,214)'
+palette=['rgb(65,72,104)', 'rgb(247,118,142)', 'rgb(158,206,106)', 'rgb(224,175,104)', 'rgb(122,162,247)', 'rgb(187,154,247)', 'rgb(125,207,255)', 'rgb(192,202,245)', 'rgb(65,72,104)', 'rgb(247,118,142)', 'rgb(158,206,106)', 'rgb(255,158,100)', 'rgb(122,162,247)', 'rgb(187,154,247)', 'rgb(42,195,222)', 'rgb(192,202,245)']
+scrollback-lines=16000
+use-custom-command=true
+use-system-font=false
+use-theme-colors=false
+visible-name='TokyoNight'
