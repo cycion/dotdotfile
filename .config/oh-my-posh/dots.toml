@@ -83,7 +83,7 @@ white2 = "#ffffff"
       cache_duration = "none"
 
   [[blocks.segments]]
-    template = "\uf444 \uf007 {{ .UserName }}<p:white>@</><p:blue>{{ .HostName }}</> \uf444"
+    template = "\uf444 \uf007 {{ .UserName }}<p:white>@</><p:cyan>{{ .HostName }}</> \uf444"
     foreground = "p:cyan"
     background = "transparent"
     type = "session"
