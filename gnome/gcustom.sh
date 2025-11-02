@@ -20,7 +20,7 @@ mkdir ~/.local/share/gtksourceview-5/styles -p
 # Install and remove several package
 cd ~
 echo "${bold}${green}==>${normal}${bold} Installing gnome utilities${normal}"
-sudo pacman -Sy --needed --noconfirm gnome-terminal gtksourceview5 gnome-browser-connector dconf-editor gnome-sound-recorder
+sudo pacman -Sy --needed --noconfirm gnome-terminal gtksourceview5 gnome-browser-connector dconf-editor gnome-sound-recorder collision ghex
 echo "${bold}${green}==>${normal}${bold} Removing gnome bloatwares${normal}"
 sudo pacman -Rns --noconfirm malcontent gnome-user-docs yelp gnome-weather gnome-maps gnome-tour gnome-music gnome-contacts simple-scan 2>/dev/null || true
 
@@ -32,6 +32,8 @@ echo "${bold}${blue}    ~> Downloading${normal}${bold} SunsetMountainRight.jpg${
 curl https://raw.githubusercontent.com/cycion/dotdotfile/refs/heads/main/.config/wallpapers/SunsetMountainRight.jpg  -o ~/Pictures/Wallpapers/SunsetMountainRight.jpg
 echo "${bold}${blue}    ~> Downloading${normal}${bold} SnowMountain.jpg${normal}"
 curl https://raw.githubusercontent.com/cycion/dotdotfile/refs/heads/main/.config/wallpapers/SnowMountain.jpg  -o ~/Pictures/Wallpapers/SnowMountain.jpg
+echo "${bold}${blue}    ~> Downloading${normal}${bold} CloudySnowMountain.jpg${normal}"
+curl https://raw.githubusercontent.com/cycion/dotdotfile/refs/heads/main/.config/wallpapers/CloudySnowMountain.jpg  -o ~/Pictures/Wallpapers/CloudySnowMountain.jpg
 # Install oh-my-zsh
 [ -d "$HOME/.oh-my-zsh" ] && echo "Skipped installing oh-my-zsh: already installed" || (echo "${bold}${green}==>${normal}${bold} Installing oh-my-zsh${normal}" && sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended)
 # Install oh-my-posh
@@ -75,5 +77,16 @@ curl https://raw.githubusercontent.com/kevin-nel/tokyo-night-gtksourceview/main/
 echo "${bold}${green}==>${normal}${bold} Installing gnome-terminal theme${normal}"
 curl https://raw.githubusercontent.com/cycion/dotdotfile/refs/heads/main/.config/dconf/gnomeProfiles.dconf -o /tmp/gnomeProfs.dconf
 dconf load /org/gnome/terminal/legacy/profiles:/ < /tmp/gnomeProfs.dconf
+
+# Install librewolf themes
+echo "${bold}${green}==>${normal}${bold} Installing librewolf theme${normal}"
+mkdir ~/.librewolf/*.default-release/chrome -p
+cp ~/.config/gtk-themes/MacTahoe-gtk-theme/other/firefox/*  ~/.librewolf/*.default-release/chrome
+
+mv ~/.librewolf/*.default-release/chrome/userChrome.css ~/.librewolf/*.default-release/chrome/userChrome-lighter.css
+mv ~/.librewolf/*.default-release/chrome/userChrome-darker.css ~/.librewolf/*.default-release/chrome/userChrome.css
+
+mv ~/.librewolf/*.default-release/chrome/userContent.css ~/.librewolf/*.default-release/chrome/userContent-lighter.css
+mv ~/.librewolf/*.default-release/chrome/userContent-darker.css ~/.librewolf/*.default-release/chrome/userContent.css
 
 echo "${bold}${blue}Installation completed, please reboot${normal}${bold}"
