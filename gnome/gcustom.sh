@@ -52,6 +52,8 @@ echo "${bold}${green}==>${normal}${bold} Installing zsh plugins${normal}"
 # Install gtk themes
 echo "${bold}${green}==>${normal}${bold} Enabling fractional scaling + xwayland native scaling${normal}"
 gsettings set org.gnome.mutter experimental-features '["scale-monitor-framebuffer", "xwayland-native-scaling"]'
+sudo echo -e "[org.gnome.desktop.interface]\nscaling-factor=1" > 99_hidpi.gschema.override
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 
 echo "${bold}${green}==>${normal}${bold} Downloading gtk themes${normal}"
 echo "${bold}${blue}    ~> Downloading${normal}${bold} MacTahoe-gtk-theme${normal}"
