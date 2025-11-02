@@ -75,7 +75,7 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
+export LIBVIRT_DEFAULT_URI="qemu:///system"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -91,9 +91,9 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
-export CFLAGS="-march=native -O3 -flto=thin"
-export CXXFLAGS="-march=native -O3 -flto=thin"
-export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3 -Clto=thin"
+export CFLAGS="-march=native -O3"
+export CXXFLAGS="-march=native -O3"
+export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3 -Ctarget-feature=+avx2,+aes,+sse4.2,+bmi,+bmi2,+fma,+lzcnt,+popcnt"
 
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
@@ -107,8 +107,13 @@ export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3 -Clto=thin"
 export VISUAL=nano
 export EDITOR=nano
 
+export SUDO_PROMPT=$'\a[sudo] password for %p: \uf023 '
+export SUDO_EDITOR=nano
+
 typeset -g ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias sudo="sudo "
+
 eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/dots.toml)"
