@@ -15,8 +15,8 @@ command -v paru &> /dev/null
 [ $? -eq 0 ] && echo "${bold}${green}==>${normal}${bold} Checking: paru is installed${normal}" || (echo "${bold}${red}==> ERROR:${normal}${bold} paru is NOT installed${normal}" && exit 127)
 
 # Install code, code-marketplace
-echo "${bold}${green}==>${normal}${bold} Installing code, code marketplace, ibus-rime, ibus-lotus, fwupd${normal}"
-paru -Sy --needed code code-marketplace ibus-rime go fwupd --noconfirm
+echo "${bold}${green}==>${normal}${bold} Installing code, code marketplace, ibus-rime, ibus-lotus, fwupd, apple-fonts${normal}"
+paru -Sy --needed code code-marketplace ibus-rime go fwupd apple-fonts --noconfirm
 cd /tmp
 git clone https://github.com/LotusInputEngine/ibus-lotus.git && cd ibus-lotus
 sudo make install
