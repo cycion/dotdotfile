@@ -45,11 +45,12 @@ OPTIONS:
   -gs, --gnome-scale        Enable fractional scaling tweaks
   -gt, --gtk-theme          Install GTK theme
   -gi, --icons              Install icon theme
-  -gb, --blur-shell         Install Blur-my-shell gschema
+  -ge, --gnome-ext          Install GNOME extensions
   -e,  --gedit-theme        Install gedit syntax theme
   -t,  --terminal-theme     Install GNOME Terminal theme
   -gc, --cursor             Install Bibata cursor theme
   -lt, --librewolf-theme    Install LibreWolf theme
+  -s,  --sysconfig          Configuring system files
 
   -a,  --all                Run all modules
   -h,  --help               Show help
@@ -71,7 +72,7 @@ RUN_ZSH=0
 RUN_GNOME_SCALE=0
 RUN_GTK_THEME=0
 RUN_ICONS=0
-RUN_BLUR=0
+RUN_EXT=0
 RUN_GEDIT=0
 RUN_TERMINAL=0
 RUN_CURSOR=0
@@ -95,12 +96,13 @@ for arg in "$@"; do
     -gs|--gnome-scale) RUN_GNOME_SCALE=1 ;;
     -gt|--gtk-theme) RUN_GTK_THEME=1 ;;
     -gi|--icons) RUN_ICONS=1 ;;
-    -gb|--blur-shell) RUN_BLUR=1 ;;
+    -ge|--gnome-ext) RUN_EXT=1 ;;
     -e|--gedit-theme) RUN_GEDIT=1 ;;
     -t|--terminal-theme) RUN_TERMINAL=1 ;;
     -gc|--cursor) RUN_CURSOR=1 ;;
+    -s|--sysconfig) RUN_SYSCONFIG=1 ;;
     -lt|--librewolf-theme) RUN_LIBREWOLF_THEME=1 ;;
-    -a|--all) RUN_PARU=1;RUN_LIBREWOLF=1;RUN_NANO=1;RUN_CACHYOS=1;RUN_UTILS=1;RUN_WALLPAPERS=1;RUN_ZSH=1;RUN_GNOME_SCALE=1;RUN_GTK_THEME=1;RUN_ICONS=1;RUN_BLUR=1;RUN_GEDIT=1;RUN_TERMINAL=1;RUN_CURSOR=1;RUN_LIBREWOLF_THEME=1 ;;
+    -a|--all) RUN_PARU=1;RUN_LIBREWOLF=1;RUN_NANO=1;RUN_CACHYOS=1;RUN_UTILS=1;RUN_WALLPAPERS=1;RUN_ZSH=1;RUN_GNOME_SCALE=1;RUN_GTK_THEME=1;RUN_ICONS=1;RUN_EXT=1;RUN_GEDIT=1;RUN_TERMINAL=1;RUN_CURSOR=1;RUN_SYSCONFIG=1;RUN_LIBREWOLF_THEME=1 ;;
     -h|--help) show_help; exit 0 ;;
     *) echo "Unknown option: $arg"; exit 1 ;;
   esac
@@ -253,7 +255,21 @@ log step "Installing MacTahoe-icon-theme"
 sudo ~/.config/gtk-themes/MacTahoe-icon-theme/install.sh -b
 }
 
-blur_install() {
+gnome_ext() {
+gsettings set org.gnome.shell disable-extension-version-validation true
+log info "Installing 'User Themes' gnome extension..."
+mkdir /tmp/gnome-ext
+curl -fsSL https://extensions.gnome.org/extension-data/user-themegnome-shell-extensions.gcampax.github.com.v66.shell-extension.zip -o /tmp/gnome-ext/user-themegnome-shell-extensions.gcampax.github.com.v66.shell-extension.zip
+gnome-extensions install /tmp/gnome-ext/user-themegnome-shell-extensions.gcampax.github.com.v66.shell-extension.zip
+log info "Installing 'Dash to Dock' gnome extension..."
+curl -fsSL https://extensions.gnome.org/extension-data/dash-to-dockmicxgx.gmail.com.v102.shell-extension.zip -o /tmp/gnome-ext/dash-to-dockmicxgx.gmail.com.v102.shell-extension.zip
+gnome-extensions install /tmp/gnome-ext/dash-to-dockmicxgx.gmail.com.v102.shell-extension.zip
+log info "Installing 'Blur my shell' gnome extension..."
+curl -fsSL https://extensions.gnome.org/extension-data/blur-my-shellaunetx.v70.shell-extension.zip -o /tmp/gnome-ext/blur-my-shellaunetx.v70.shell-extension.zip
+gnome-extensions install /tmp/gnome-ext/blur-my-shellaunetx.v70.shell-extension.zip
+log info "Installing 'Windows Call Extended' gnome extension..."
+curl -fsSL https://extensions.gnome.org/extension-data/window-calls-extendedhseliger.eu.v9.shell-extension.zip -o /tmp/gnome-ext/window-calls-extendedhseliger.eu.v9.shell-extension.zip
+gnome-extensions install /tmp/gnome-ext/window-calls-extendedhseliger.eu.v9.shell-extension.zip
 log info "Installing Blur-my-shell theme"
 curl -fsSL https://raw.githubusercontent.com/cycion/dotdotfile/refs/heads/main/.config/blur-my-shell/org.gnome.shell.extensions.blur-my-shell.gschema.xml -o $HOME/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas/org.gnome.shell.extensions.blur-my-shell.gschema.xml
 }
@@ -292,6 +308,10 @@ echo "Remember to enable toolkit.legacyUserProfileCustomizations.stylesheets and
 log info "Installation completed, please reboot"
 }
 
+sysconfig() {
+log info "Configuring system files"
+bash sysconfig.sh
+}
 # -------------------------------------------------------------------
 # EXECUTION BASED ON FLAGS
 # -------------------------------------------------------------------
@@ -306,10 +326,11 @@ log info "Installation completed, please reboot"
 [[ $RUN_GNOME_SCALE == 1 ]] && scale_enable
 [[ $RUN_GTK_THEME == 1 ]] && gtk_theme_install
 [[ $RUN_ICONS == 1 ]] && icons_install
-[[ $RUN_BLUR == 1 ]] && blur_install
+[[ $RUN_EXT == 1 ]] && gnome_ext
 [[ $RUN_GEDIT == 1 ]] && gedit_theme
 [[ $RUN_TERMINAL == 1 ]] && terminal_theme
 [[ $RUN_CURSOR == 1 ]] && cursor_install
+[[ $RUN_SYSCONFIG=1 ]] && sysconfig
 [[ $RUN_LIBREWOLF_THEME == 1 ]] && librewolf_theme
 
 echo -e "\n${bold}${green}Done.${normal}"
