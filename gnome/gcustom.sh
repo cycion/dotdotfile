@@ -70,6 +70,7 @@ RUN_UTILS=0
 RUN_WALLPAPERS=0
 RUN_ZSH=0
 RUN_GNOME_SCALE=0
+RUN_SYSCONFIG=0
 RUN_GTK_THEME=0
 RUN_ICONS=0
 RUN_EXT=0
@@ -109,7 +110,7 @@ for arg in "$@"; do
 done
 
 # Ensure base dirs (before functions)
-mkdir -p ~/.config/gtk-themes ~/.config/oh-my-posh ~/Pictures/Wallpapers ~/.local/share/gtksourceview-5/styles
+mkdir -p ~/.config/gtk-themes ~/.config/oh-my-posh ~/Pictures/Wallpapers ~/.local/share/gtksourceview-5/styles ~/.local/share/icons
 
 # -------------------------------------------------------------------
 # MODULE FUNCTIONS
@@ -330,7 +331,7 @@ bash sysconfig.sh
 [[ $RUN_GEDIT == 1 ]] && gedit_theme
 [[ $RUN_TERMINAL == 1 ]] && terminal_theme
 [[ $RUN_CURSOR == 1 ]] && cursor_install
-[[ $RUN_SYSCONFIG=1 ]] && sysconfig
+[[ $RUN_SYSCONFIG == 1 ]] && sysconfig
 [[ $RUN_LIBREWOLF_THEME == 1 ]] && librewolf_theme
 
 echo -e "\n${bold}${green}Done.${normal}"
