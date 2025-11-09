@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-# Colors
+# Colorss
 bold=$(tput bold)
 normal=$(tput sgr0)
 blue=$(tput setaf 4)
@@ -9,6 +9,8 @@ green=$(tput setaf 2)
 yellow=$(tput setaf 3)
 white=$(tput setaf 7)
 red=$(tput setaf 1)
+
+PWD=$(pwd)
 
 # === Logging Helper Function ===
 log() {
@@ -45,7 +47,6 @@ OPTIONS:
   -gs, --gnome-scale        Enable fractional scaling tweaks
   -gt, --gtk-theme          Install GTK theme
   -gi, --icons              Install icon theme
-  -ge, --gnome-ext          Install GNOME extensions
   -e,  --gedit-theme        Install gedit syntax theme
   -t,  --terminal-theme     Install GNOME Terminal theme
   -gc, --cursor             Install Bibata cursor theme
@@ -73,7 +74,6 @@ RUN_GNOME_SCALE=0
 RUN_SYSCONFIG=0
 RUN_GTK_THEME=0
 RUN_ICONS=0
-RUN_EXT=0
 RUN_GEDIT=0
 RUN_TERMINAL=0
 RUN_CURSOR=0
@@ -97,20 +97,19 @@ for arg in "$@"; do
     -gs|--gnome-scale) RUN_GNOME_SCALE=1 ;;
     -gt|--gtk-theme) RUN_GTK_THEME=1 ;;
     -gi|--icons) RUN_ICONS=1 ;;
-    -ge|--gnome-ext) RUN_EXT=1 ;;
     -e|--gedit-theme) RUN_GEDIT=1 ;;
     -t|--terminal-theme) RUN_TERMINAL=1 ;;
     -gc|--cursor) RUN_CURSOR=1 ;;
-    -s|--sysconfig) RUN_SYSCONFIG=1 ;;
+    -s|--sysconfig) RUN_SYSCONFIG=0 ;;
     -lt|--librewolf-theme) RUN_LIBREWOLF_THEME=1 ;;
-    -a|--all) RUN_PARU=1;RUN_LIBREWOLF=1;RUN_NANO=1;RUN_CACHYOS=1;RUN_UTILS=1;RUN_WALLPAPERS=1;RUN_ZSH=1;RUN_GNOME_SCALE=1;RUN_GTK_THEME=1;RUN_ICONS=1;RUN_EXT=1;RUN_GEDIT=1;RUN_TERMINAL=1;RUN_CURSOR=1;RUN_SYSCONFIG=1;RUN_LIBREWOLF_THEME=1 ;;
+    -a|--all) RUN_PARU=1;RUN_LIBREWOLF=1;RUN_NANO=1;RUN_CACHYOS=1;RUN_UTILS=1;RUN_WALLPAPERS=1;RUN_ZSH=1;RUN_GNOME_SCALE=1;RUN_GTK_THEME=1;RUN_ICONS=1;RUN_EXT=1;RUN_GEDIT=1;RUN_TERMINAL=1;RUN_CURSOR=1;RUN_SYSCONFIG=0;RUN_LIBREWOLF_THEME=1 ;;
     -h|--help) show_help; exit 0 ;;
     *) echo "Unknown option: $arg"; exit 1 ;;
   esac
 done
 
 # Ensure base dirs (before functions)
-mkdir -p ~/.config/gtk-themes ~/.config/oh-my-posh ~/Pictures/Wallpapers ~/.local/share/gtksourceview-5/styles ~/.local/share/icons
+mkdir -p ~/.config/gtk-themes ~/.config/oh-my-posh ~/Pictures/Wallpapers ~/.local/share/gtksourceview-5/styles ~/.local/share/icons /tmp/paru
 
 # -------------------------------------------------------------------
 # MODULE FUNCTIONS
@@ -122,7 +121,6 @@ if pacman -Qs paru > /dev/null; then
 else
   log info "Checking: paru is NOT installed, building paru"
   rustup default stable
-  mkdir /tmp/paru
   git clone https://aur.archlinux.org/paru.git /tmp/paru
   sed -i '23 i export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3 -Ctarget-feature=+avx2,+aes,+sse4.2,+bmi2,+fma,+lzcnt,+popcnt"' "/tmp/paru/PKGBUILD"
   makepkg -D /tmp/paru -si
@@ -131,7 +129,7 @@ fi
 }
 
 librewolf_install() {
-if pacman -Qs librewolf > /dev/null; then
+if pacman -Qi librewolf > /dev/null; then
   log info "Checking: librewolf is installed"
 else
   log info "Checking: librewolf is NOT installed"
@@ -143,7 +141,7 @@ fi
 }
 
 nano_config() {
-if grep -Fxq "include /usr/share/nano-syntax-highlighting/*.nanorc " "/etc/nanorc"; then
+if grep -Fxq "include /usr/share/nano-syntax-highlighting/*.nanorc" "/etc/nanorc"; then
   log info "Checking: nano is already configured"
 else
   log info "Checking: nano is NOT configured"
@@ -288,14 +286,22 @@ dconf load /org/gnome/terminal/legacy/profiles:/ < /tmp/gnomeProfs.dconf
 
 cursor_install() {
 log info "Installing Bibata cursor theme"
-curl -fsSL https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.7/Bibata.tar.xz -o /tmp/Bibata.tar.xz
+curl -fsSL https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.7/Bibata-Modern-Classic.tar.xz -o /tmp/Bibata-Modern-Classic.tar.xz
+curl -fsSL https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.7/Bibata-Modern-Ice.tar.xz -o /tmp/Bibata-Modern-Ice.tar.xz
 cd /tmp
-tar -xvf /tmp/Bibata.tar.xz
-mv Bibata-* ~/.local/share/icons/
+7z x /tmp/Bibata-Modern-Classic.tar.xz -o/tmp
+7z x /tmp/Bibata-Modern-Ice.tar.xz -o/tmp
+
+7z x /tmp/Bibata-Modern-Classic.tar
+7z x /tmp/Bibata-Modern-Ice.tar
+
+mv Bibata-Modern-Classic ~/.local/share/icons/
+mv Bibata-Modern-Ice ~/.local/share/icons/
 }
 
 librewolf_theme() {
 log info "Installing librewolf theme"
+read -n 1 -s -r -p "Make sure you have created a firefox profile"
 LIBREPATH=$(find ~/.librewolf -maxdepth 1 -type d -name "*default-release" | head -n 1)
 mkdir -p $LIBREPATH/chrome
 cp ~/.config/gtk-themes/MacTahoe-gtk-theme/other/firefox/* $LIBREPATH/chrome -r
@@ -306,32 +312,30 @@ mv $LIBREPATH/chrome/userContent.css $LIBREPATH/chrome/userContent-lighter.css
 mv $LIBREPATH/chrome/userContent-darker.css $LIBREPATH/chrome/userContent.css
 
 echo "Remember to enable toolkit.legacyUserProfileCustomizations.stylesheets and svg.context-properties.content.enabled"
-log info "Installation completed, please reboot"
 }
 
 sysconfig() {
 log info "Configuring system files"
-bash sysconfig.sh
+bash ~/sysconfig.sh
 }
 # -------------------------------------------------------------------
 # EXECUTION BASED ON FLAGS
 # -------------------------------------------------------------------
-
-[[ $RUN_PARU == 1 ]] && paru_install
-[[ $RUN_LIBREWOLF == 1 ]] && librewolf_install
 [[ $RUN_NANO == 1 ]] && nano_config
+[[ $RUN_PARU == 1 ]] && paru_install
 [[ $RUN_CACHYOS == 1 ]] && cachyos_install
 [[ $RUN_UTILS == 1 ]] && utils_install
+[[ $RUN_LIBREWOLF == 1 ]] && librewolf_install
 [[ $RUN_WALLPAPERS == 1 ]] && wallpapers_install
 [[ $RUN_ZSH == 1 ]] && zsh_install
 [[ $RUN_GNOME_SCALE == 1 ]] && scale_enable
 [[ $RUN_GTK_THEME == 1 ]] && gtk_theme_install
+[[ $RUN_LIBREWOLF_THEME == 1 ]] && librewolf_theme
 [[ $RUN_ICONS == 1 ]] && icons_install
-[[ $RUN_EXT == 1 ]] && gnome_ext
 [[ $RUN_GEDIT == 1 ]] && gedit_theme
 [[ $RUN_TERMINAL == 1 ]] && terminal_theme
 [[ $RUN_CURSOR == 1 ]] && cursor_install
 [[ $RUN_SYSCONFIG == 1 ]] && sysconfig
-[[ $RUN_LIBREWOLF_THEME == 1 ]] && librewolf_theme
+
 
 echo -e "\n${bold}${green}Done.${normal}"
