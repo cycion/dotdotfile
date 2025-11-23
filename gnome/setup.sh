@@ -86,7 +86,7 @@ build_mod () {
     if grep -Fxq 'export CFLAGS="-march=native -O3"' "$HOME/.makepkg.conf"; then
         log info "makepkg.conf is already configured"
     else
-cat > "$HOME/.makepkg.conf" <<'EOF'
+cat >> "$HOME/.makepkg.conf" <<'EOF'
 export CFLAGS="-march=native -O3"
 export CXXFLAGS="-march=native -O3"
 export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3 -Ctarget-feature=+avx2,+aes,+sse4.2,+bmi,+bmi2,+fma,+lzcnt,+popcnt"
@@ -101,10 +101,12 @@ nano_config() {
     if grep -Fxq "include /usr/share/nano-syntax-highlighting/*.nanorc" "/etc/nanorc"; then
         log info "Checking: nano is already configured"
     else
-        sudo bash -c 'echo "## nano syntax definitions" >> /etc/nanorc'
-        sudo bash -c 'echo "include /usr/share/nano/*.nanorc" >> /etc/nanorc'
-        sudo bash -c 'echo "include /usr/share/nano/extra/*.nanorc" >> /etc/nanorc'
-        sudo bash -c 'echo "include /usr/share/nano-syntax-highlighting/*.nanorc" >> /etc/nanorc'
+        sudo tee -a /etc/nanorc >/dev/null <<'EOF'
+## == Syntax highlighting ==
+include /usr/share/nano/*.nanorc
+include /usr/share/nano/extra/*.nanorc
+include /usr/share/nano-syntax-highlighting/*.nanorc
+EOF
         log info "Successfully configured nano"
     fi
 }
@@ -293,10 +295,19 @@ librewolf_theme() {
     echo "Remember to enable toolkit.legacyUserProfileCustomizations.stylesheets and svg.context-properties.content.enabled"
 }
 
+yazi_theme() {
+    log info "Installing yazi theme"
+    ya pkg add yazi-rs/flavors:dracula
+    cat >> "$HOME/.config/yazi/theme.toml" <<'EOF'
+[flavor]
+dark = "dracula"
+EOF
+}
+
 # Applying ntfs mounting fix
 ntfs3_fix() {
     log info "Fixing NTFS drive mount issue"
-    echo 'blacklist ntfs3' | sudo tee /etc/modprobe.d/FIX-ntfs-3g_mount.conf
+    echo 'blacklist ntfs3' | sudo tee /etc/modprobe.d/FIX-ntfs_mount.conf
 }
 
 # Do not display certain things
@@ -359,6 +370,7 @@ OPTIONS:
   -t,  --terminal-theme     Install GNOME Terminal theme
   -gc, --cursor             Install Bibata cursor theme
   -lt, --librewolf-theme    Install LibreWolf theme
+  -yz, --yazi               Install yazi dracula theme
   -fs, --ntfs               Fixing ntfs3 mounting
   -d,  --desktop            Modifying desktop entries
 
@@ -366,7 +378,7 @@ OPTIONS:
   -h,  --help               Show help
 
 Examples:
-  $(basename "$0") -nw
+  $(basename "$0") -n -w
   $(basename "$0") --nano --wallpapers --zsh
 EOF
 }
@@ -387,6 +399,7 @@ RUN_GTKSRC=0
 RUN_TERMINAL=0
 RUN_CURSOR=0
 RUN_LIBREWOLF_THEME=0
+RUN_YAZI=0
 RUN_NTFS=0
 RUN_DESKTOP=0
 
@@ -412,9 +425,10 @@ for arg in "$@"; do
     -t|--terminal-theme) RUN_TERMINAL=1 ;;
     -gc|--cursor) RUN_CURSOR=1 ;;
     -lt|--librewolf-theme) RUN_LIBREWOLF_THEME=1 ;;
+    -yz|--yazi) RUN_YAZI=1 ;;
     -fs|--ntfs) RUN_NTFS=1 ;;
     -d|--desktop) RUN_DESKTOP=1 ;;
-    -a|--all) RUN_PARU=1;RUN_LIBREWOLF=1;RUN_NANO=1;RUN_CACHYOS=1;RUN_UTILS=1;RUN_WALLPAPERS=1;RUN_ZSH=1;RUN_GNOME_SCALE=1;RUN_GTK_THEME=1;RUN_ICONS=1;RUN_GTKSRC=1;RUN_TERMINAL=1;RUN_CURSOR=1;RUN_LIBREWOLF_THEME=1;RUN_NTFS=1;RUN_DESKTOP=1 ;;
+    -a|--all) RUN_PARU=1;RUN_LIBREWOLF=1;RUN_NANO=1;RUN_CACHYOS=1;RUN_UTILS=1;RUN_WALLPAPERS=1;RUN_ZSH=1;RUN_GNOME_SCALE=1;RUN_GTK_THEME=1;RUN_ICONS=1;RUN_GTKSRC=1;RUN_TERMINAL=1;RUN_CURSOR=1;RUN_LIBREWOLF_THEME=1;RUN_YAZI=1;RUN_NTFS=1;RUN_DESKTOP=1 ;;
     -h|--help) show_help; exit 0 ;;
     *) echo "Unknown option: $arg"; exit 1 ;;
   esac
@@ -436,5 +450,6 @@ build_mod
 [[ $RUN_TERMINAL == 1 ]] && terminal_theme
 [[ $RUN_CURSOR == 1 ]] && cursor_install
 [[ $RUN_LIBREWOLF_THEME == 1 ]] && librewolf_theme
+[[ $RUN_YAZI == 1 ]] && yazi_theme
 [[ $RUN_NTFS == 1 ]] && ntfs3_fix
 [[ $RUN_DESKTOP == 1 ]] && desktop_file
