@@ -1,0 +1,176 @@
+{
+    "app_config": {
+        "audio_config": {
+            "audio": "pipewire"
+        },
+        "bluetooth_config": {
+            "enabled": true
+        }
+    },
+    "archinstall-language": "English",
+    "auth_config": {},
+    "bootloader": "Systemd-boot",
+    "custom_commands": [],
+    "disk_config": {
+        "btrfs_options": {
+            "snapshot_config": null
+        },
+        "config_type": "manual_partitioning",
+        "device_modifications": [
+            {
+                "device": "/dev/nvme0n1",
+                "partitions": [
+                    {
+                        "btrfs": [],
+                        "dev_path": null,
+                        "flags": [
+                            "boot",
+                            "esp"
+                        ],
+                        "fs_type": "fat32",
+                        "mount_options": [],
+                        "mountpoint": "/boot",
+                        "obj_id": "f62ef690-d567-4ca4-aaf5-3dcd3b3e3113",
+                        "size": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "GiB",
+                            "value": 1
+                        },
+                        "start": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "MiB",
+                            "value": 1
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    },
+                    {
+                        "btrfs": [],
+                        "dev_path": null,
+                        "flags": [],
+                        "fs_type": "ext4",
+                        "mount_options": [],
+                        "mountpoint": "/",
+                        "obj_id": "f9fe469f-7170-4371-b1ee-644312751d2a",
+                        "size": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "GiB",
+                            "value": 460
+                        },
+                        "start": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "B",
+                            "value": 1074790400
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    },
+                    {
+                        "btrfs": [],
+                        "dev_path": null,
+                        "flags": [
+                            "swap"
+                        ],
+                        "fs_type": "linux-swap",
+                        "mount_options": [],
+                        "mountpoint": null,
+                        "obj_id": "5fab1411-29e8-4c64-aec7-2c277de36bee",
+                        "size": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "B",
+                            "value": 17112760320
+                        },
+                        "start": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "B",
+                            "value": 494996029440
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    }
+                ],
+                "wipe": true
+            }
+        ],
+        "disk_encryption": {
+            "encryption_type": "luks",
+            "lvm_volumes": [],
+            "partitions": [
+                "f9fe469f-7170-4371-b1ee-644312751d2a"
+            ]
+        }
+    },
+    "hostname": "iMac",
+    "kernels": [
+        "linux",
+        "linux-zen"
+    ],
+    "locale_config": {
+        "kb_layout": "us",
+        "sys_enc": "UTF-8",
+        "sys_lang": "en_US.UTF-8"
+    },
+    "mirror_config": {
+        "custom_repositories": [],
+        "custom_servers": [],
+        "mirror_regions": {},
+        "optional_repositories": []
+    },
+    "network_config": {
+        "type": "nm"
+    },
+    "ntp": true,
+    "packages": [
+        "7zip",
+        "bat",
+        "git",
+        "nano",
+        "nano-syntax-highlighting",
+        "ntfs-3g",
+        "nvme-cli",
+        "quota-tools",
+        "sbctl",
+        "ttf-cascadia-code-nerd",
+        "usbutils",
+        "zsh",
+        "rustup",
+        "unzip"
+    ],
+    "parallel_downloads": 0,
+    "profile_config": {
+        "gfx_driver": "AMD / ATI (open-source)",
+        "greeter": "gdm",
+        "profile": {
+            "custom_settings": {
+                "GNOME": {}
+            },
+            "details": [
+                "GNOME"
+            ],
+            "main": "Desktop"
+        }
+    },
+    "script": null,
+    "services": [],
+    "swap": true,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "version": "3.0.11"
+}
