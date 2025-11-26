@@ -75,13 +75,15 @@ plugins=(zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export LIBVIRT_DEFAULT_URI="qemu:///system"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+export VISUAL=nano
+export EDITOR=nano
+
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
@@ -104,9 +106,6 @@ export RUSTFLAGS="-Ctarget-cpu=native -C opt-level=3 -Ctarget-feature=+avx2,+aes
 # For a full list of active aliases, run `alias`.
 
 # Environment variables
-export VISUAL=nano
-export EDITOR=nano
-
 export SUDO_PROMPT=$'\a[sudo] password for %p: \uf023 '
 export SUDO_EDITOR=nano
 
