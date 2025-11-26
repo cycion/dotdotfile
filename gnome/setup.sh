@@ -1,14 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-# === Temporary directory creation ===
-TEMP=$(mktemp -d)
-
-cleanup() {
-    log info "Cleaning up"
-    rm -rf "$TEMP"
-}
-
-trap cleanup EXIT
 
 # === Colors ===
 bold=$(tput bold)
@@ -18,6 +9,15 @@ green=$(tput setaf 2)
 yellow=$(tput setaf 3)
 white=$(tput setaf 7)
 red=$(tput setaf 1)
+
+# === Temporary directory creation ===
+TEMP=$(mktemp -d)
+
+cleanup() {
+    rm -rf "$TEMP"
+}
+
+trap cleanup EXIT
 
 # === Logging styles ===
 log() {
@@ -281,6 +281,7 @@ cursor_install() {
 
 # Installing librewolf themes
 librewolf_theme() {
+    [[ -d "$HOME/.config/gtk-themes/MacTahoe-gtk-theme" ]] && gtk_theme_install
     log info "Installing librewolf theme"
     read -n 1 -s -r -p "Make sure you have created a firefox profile"
     LIBREPATH=$(find ~/.librewolf -maxdepth 1 -type d -name "*default-release" | head -n 1)
@@ -296,18 +297,26 @@ librewolf_theme() {
 }
 
 yazi_theme() {
-    log info "Installing yazi theme"
-    ya pkg add yazi-rs/flavors:dracula
-    cat >> "$HOME/.config/yazi/theme.toml" <<'EOF'
+    if grep -Fxq 'dark = "dracula"' "$HOME/.config/yazi/theme.toml"; then
+        log info "Checking: yazi is already configured"
+    else
+        log info "Installing yazi theme"
+        ya pkg add yazi-rs/flavors:dracula
+        cat >> "$HOME/.config/yazi/theme.toml" <<'EOF'
 [flavor]
 dark = "dracula"
 EOF
+    fi
 }
 
 # Applying ntfs mounting fix
 ntfs3_fix() {
-    log info "Fixing NTFS drive mount issue"
-    echo 'blacklist ntfs3' | sudo tee /etc/modprobe.d/FIX-ntfs_mount.conf
+    if grep -Fxq "blacklist ntfs3" "/etc/modprobe.d/FIX-ntfs_mount.conf" > /dev/null; then
+        log info "Checking: ntfs mounting is already fixed"
+    else
+        log info "Fixing NTFS drive mount issue"
+        echo 'blacklist ntfs3' | sudo tee /etc/modprobe.d/FIX-ntfs_mount.conf
+    fi
 }
 
 # Do not display certain things
@@ -330,21 +339,21 @@ desktop_file() {
 
     # Loop through each app
     for app in "${apps[@]}"; do
-    src="/usr/share/applications/${app}.desktop"
-    dest="$HOME/.local/share/applications/${app}.desktop"
+        src="/usr/share/applications/${app}.desktop"
+        dest="$HOME/.local/share/applications/${app}.desktop"
 
-    # Copy if it doesn't exist
-    if [ ! -e "$dest" ]; then
-        cp "$src" "$dest"
-    fi
+        # Copy if it doesn't exist
+        if [ ! -e "$dest" ]; then
+            cp "$src" "$dest"
+        fi
 
-    # Check if NoDisplay=true already exists
-    if grep -Fxq "NoDisplay=true" "$dest"; then
-        echo "${app}.desktop is already configured"
-    else
-        sed -i '3 i NoDisplay=true' "$dest"
-        echo "    -> Processed ${app}.desktop"
-    fi
+        # Check if NoDisplay=true already exists
+        if grep -Fxq "NoDisplay=true" "$dest"; then
+            echo "${app}.desktop is already configured"
+        else
+            sed -i '3 i NoDisplay=true' "$dest"
+            echo "    -> Processed ${app}.desktop"
+        fi
     done
 }
 
@@ -378,8 +387,8 @@ OPTIONS:
   -h,  --help               Show help
 
 Examples:
-  $(basename "$0") -n -w
-  $(basename "$0") --nano --wallpapers --zsh
+  ./$(basename "$0") -n -w
+  ./$(basename "$0") --nano --wallpapers --zsh
 EOF
 }
 
