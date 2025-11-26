@@ -1,39 +1,40 @@
 version = 3
 final_space = true
 
-# [palette] # TokyoNight color palette
-# black = "#15161e"
-# red = "#f7768e"
-# green = "#9ece6a"
-# yellow = "#e0af68"
-# blue = "#7aa2f7"
-# magenta = "#bb9af7"
-# cyan = "#7dcfff"
-# white = "#c0caf5"
-# 
-# yellow2 = "#ff9e64"
-# cyan2 = "#73daca"
-# cyan3 = "#b4f9f8"
-# blue2 = "#2ac3de"
+[palette] # TokyoNight color palette
+black = "#15161e"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#c0caf5"
 
-[palette] # Ayu-dark color palette
-black = "#1e232b"
-red = "#ea6c73"
-green = "#7fd962"
-yellow = "#f9af4f"
-blue = "#53bdfa"
-magenta = "#cda1fa"
-cyan = "#90e1c6"
-white = "#c7c7c7"
+yellow2 = "#ff9e64"
+cyan2 = "#73daca"
+cyan3 = "#b4f9f8"
+blue2 = "#2ac3de"
+magenta2 = "#dca0c1"
+#14141b
+# [palette] # Ayu-dark color palette
+# black = "#1e232b"
+# red = "#ea6c73"
+# green = "#7fd962"
+# yellow = "#f9af4f"
+# blue = "#53bdfa"
+# magenta = "#cda1fa"
+# cyan = "#90e1c6"
+# white = "#c7c7c7"
 
-black2 = "#686868"
-red2 = "#f07178"
-green2 = "#aad94c"
-yellow2 = "#ffb454"
-blue2 = "#59c2ff"
-magenta2 = "#d2a6ff"
-cyan2 = "#95e6cb"
-white2 = "#ffffff"
+# black2 = "#686868"
+# red2 = "#f07178"
+# green2 = "#aad94c"
+# yellow2 = "#ffb454"
+# blue2 = "#59c2ff"
+# magenta2 = "#d2a6ff"
+# cyan2 = "#95e6cb"
+# white2 = "#ffffff"
 
 # [palette] # Sonokai color palette
 # red = "#fb617e"
@@ -66,11 +67,11 @@ white2 = "#ffffff"
   type = "prompt"
   alignment = "left"
 
-  [[blocks.segments]]
-    type = "text"
-    style = "plain"
-    foreground = "#ffffff"
-    template = "<#eaeaea>\u23a7</> "
+  # [[blocks.segments]]
+  #   type = "text"
+  #   style = "plain"
+  #   foreground = "#ffffff"
+  #   template = "<#eaeaea>\u23a7</> "
 
   [[blocks.segments]]
     template = "{{ if eq .Code 0 }}{{ else }}\uf444 \uf467 {{ .Code }} \uf444{{ end }}"
@@ -83,8 +84,8 @@ white2 = "#ffffff"
       cache_duration = "none"
 
   [[blocks.segments]]
-    template = "\uf444 \uf007 {{ .UserName }}<p:white>@</><p:cyan>{{ .HostName }}</> \uf444"
-    foreground = "p:cyan"
+    template = "\uf444 \uf007 {{ .UserName }}<p:blue>@</><p:blue>{{ .HostName }}</> \uf444"
+    foreground = "p:blue"
     background = "transparent"
     type = "session"
     style = "plain"
@@ -94,8 +95,8 @@ white2 = "#ffffff"
       cache_duration = "none"
 
   [[blocks.segments]]
-    template = "\uf444 {{ if .Writable }}\uf07b{{ else }}<p:yellow2>\uf456</>{{ end }} {{ .Path }} \uf444"
-    foreground = "p:yellow"
+    template = "\uf444 {{ if .Writable }}\uf07b{{ else }}<p:magenta2>\uf456</>{{ end }} {{ .Path }} \uf444"
+    foreground = "p:magenta2"
     background = "transparent"
     type = "path"
     style = "plain"
@@ -120,8 +121,8 @@ white2 = "#ffffff"
       branch_icon = "\ue725 "
       
   [[blocks.segments]]
-    template = "\uf444 \uf252 {{ .FormattedMs }} \uf444"
-    foreground = "p:cyan2"
+    template = "\uf444 \uf253 {{ .FormattedMs }} \uf444"
+    foreground = "p:cyan"
     background = "transparent"
     type = "executiontime"
     style = "plain"
@@ -154,7 +155,7 @@ white2 = "#ffffff"
   newline = true
   [[blocks.segments]]
 #    template = "\u2570"
-    template = "<#eaeaea>\u23a9</>\u2009\u2937 "
+    template = "\u2009\u2937 "
     foreground = "p:green"
     background = "transparent"
     type = "text"
